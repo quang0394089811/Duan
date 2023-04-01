@@ -4,6 +4,7 @@ const Contact = () => {
     return (
         <View>
             <Text>Contact</Text>
+            <Text>AKLLJIFee</Text>
         </View>
     )
 }
