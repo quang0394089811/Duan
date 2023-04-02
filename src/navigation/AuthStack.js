@@ -6,6 +6,7 @@ import Login from '../Screen/Login';
 import NewAccount from '../Screen/NewAccount';
 import Home from '../Screen/Home';
 import EditProfile from '../edit/EditProfile';
+import DetailProduct from "../bottom/DetailProduct";
 const Stack = createNativeStackNavigator();
 // const HomeScreen = () => {
 //   return(
@@ -23,6 +24,7 @@ const AuthStack = ()=>{
           <Stack.Screen options={{headerShown: false}} name='NewAccount' component={NewAccount}></Stack.Screen>
           <Stack.Screen options={{headerShown: false}} name='Home' component={Home}></Stack.Screen>
           <Stack.Screen options={{headerShown: true}} name='EditProfile' component={EditProfile}></Stack.Screen>
+          <Stack.Screen options={{headerShown: true}} name='DetailProduct' component={DetailProduct}></Stack.Screen>
         </Stack.Navigator>
     )
 }

@@ -1,9 +1,17 @@
 import { View, Text, Image, TouchableOpacity } from "react-native"
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
 
-const MyProductItem = ({ item,onAddToCart,onAddWishlist }) => {
+const MyProductItem = ({ item,onAddToCart,onAddWishlist}) => {
+    const navigation = useNavigation()
+
+    const Detail1 = ()=>{
+        navigation.navigate('DetailProduct')
+        
+     }
     return (
-        <View style={{
+        <TouchableOpacity onPress={()=>{Detail1()}}>
+            <View style={{
             width: 200,
             height: 200,
             borderRadius: 10,
@@ -73,6 +81,8 @@ const MyProductItem = ({ item,onAddToCart,onAddWishlist }) => {
                 />
             </TouchableOpacity>
         </View>
+        </TouchableOpacity>
+        
     );
 };
 
