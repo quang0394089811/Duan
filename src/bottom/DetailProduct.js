@@ -185,7 +185,7 @@ const DetailProduct = () => {
                         <TouchableOpacity style={{ marginTop: 10, marginRight: 20, borderWidth: 1, borderRadius: 7, padding: 10, width: 150, flexDirection: "row", justifyContent: 'center', alignItems: 'center', backgroundColor: 'black' }}>
                             <Text style={{ textAlign: 'center', textTransform: 'uppercase', fontWeight: 'bold', color: 'white' }}>Liên Hệ</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={{ marginTop: 10, marginLeft: 20, borderColor:'orange', borderRadius: 7, padding: 10, width: 150, flexDirection: "row", justifyContent: 'center', alignItems: 'center', backgroundColor: 'black', backgroundColor: 'orange', }}>
+                        <TouchableOpacity style={{ marginTop: 10, marginLeft: 20, borderColor: 'orange', borderRadius: 7, padding: 10, width: 150, flexDirection: "row", justifyContent: 'center', alignItems: 'center', backgroundColor: 'black', backgroundColor: 'orange', }}>
                             <Text style={{ textAlign: 'center', textTransform: 'uppercase', fontWeight: 'bold', color: 'white' }}>Giỏ Hàng</Text>
                         </TouchableOpacity>
                     </View>
@@ -274,91 +274,7 @@ const DetailProduct = () => {
                     </View>
                 </SafeAreaView>
             </ScrollView>
-
-
-
-
-            {/* <Text style={{
-                fontSize: 18,
-                textAlign: 'center',
-                textAlignVertical: 'center',
-                marginLeft: -260,
-                marginRight: 20
-            }}>Số lượng </Text> */}
-            {/* <View style={{ flex: 1, flexDirection: 'row' }}>
-                <TouchableOpacity>
-                    <Text style={{
-                        borderWidth: 1,
-                        fontSize: 15,
-                        fontWeight: 'bold',
-                        borderRadius: 5,
-                        alignSelf: 'center',
-                        padding: 5,
-                        margin: 5,
-                        backgroundColor: 'white'
-                    }}>-</Text>
-                </TouchableOpacity>
-
-                <Text style={{
-                    borderWidth: 1,
-                    fontSize: 15,
-                    fontWeight: 'bold',
-                    borderRadius: 5,
-                    alignSelf: 'center',
-                    padding: 5,
-                    margin: 5,
-                    backgroundColor: 'white'
-                }}>0</Text>
-
-                <TouchableOpacity>
-                    <Text style={{
-                        borderWidth: 1,
-                        fontSize: 15,
-                        fontWeight: 'bold',
-                        borderRadius: 5,
-                        alignSelf: 'center',
-                        padding: 5,
-                        margin: 5,
-                        backgroundColor: 'white'
-
-                    }}>+</Text>
-                </TouchableOpacity>
-
-
-                <View style={{ flex: 1, flexDirection: 'row', }}>
-                    <TouchableOpacity >
-                        <Text style={{
-                            height: 45,
-                            width: 'auto',
-                            borderWidth: 1,
-                            borderBottomLeftRadius: 10,
-                            marginLeft: 280,
-                            color: 'red',
-                            fontSize: 15,
-                        }}>Thanh toán</Text>
-
-                    </TouchableOpacity>
-                </View>
-            </View> */}
-
-            {/* <View style={{
-                width: 'auto',
-                height: 250,
-                borderRadius: 10,
-                elevation: 5,
-                backgroundColor: '#fff',
-                marginTop: 5,
-            }}>
-                <Text>Chi tiết Sản Phẩm: </Text>
-                <ScrollView>
-                    <Text style={{ marginTop: 5 }}>
-                        Tính năng nổi bật
-                        •	Màn hình Liquid Retina HD LCD 6.1 inch (3)
-                        •	Chống nước và chống bụi (chống nước ở độ sâu 2 mét trong vòng tối đa 30 phút, đạt mức IP68) (1)
-                        •	Hệ thống camera kép 12MP với camera Ultra Wide và Wide; chế độ Ban Đêm, chế độ Chân Dung và video 4K tốc độ tối đa 60fps
-                    </Text>
-                </ScrollView>
-            </View> */}
+            
         </View>
     )
 };
