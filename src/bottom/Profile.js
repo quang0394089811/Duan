@@ -1,4 +1,4 @@
-import {  View,SafeAreaView,ScrollView,StyleSheet,Button,Pressable } from "react-native";
+import {  View,SafeAreaView,ScrollView,RefreshControl,StyleSheet,Button,Pressable } from "react-native";
 import {Avatar, Title,Caption, Text,TouchableRipple} from "react-native-paper"
 import {React,useEffect,useState} from "react";
 import { useNavigation,useIsFocused } from "@react-navigation/native";
@@ -8,45 +8,93 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 import editProfile from "../edit/EditProfile"
 import axios from "axios";
 import Header from "../common/Header";
-import {PROFILEMEMBER,URL} from "../../api";
+
+import {PROFILEMEMBER,GET_ALL_USER_ORDERS} from "../../api";
 
 
 const Profile = () => {
     const [image,setImage] = useState('')
     const isFocused = useIsFocused()
     const navigation = useNavigation()
-    const info = useSelector((state)=> state.personalInfo)
+    const info = useSelector(state => state.Reducers.arrUser);
     const [profile,setProfile] = useState({})
+    const [refreshing, setRefreshing] = useState(false);
+    const [getAllOrders,setGetAllOrders]= useState([]);
+        onRefresh = () => {
+            setRefreshing(true)
+            getProfile()
+            getAllOrder()
+        }
     
     const singOut = ()=>{
        navigation.navigate('Login')
        
     }
+    const priceProfile = ()=>{
+        navigation.navigate('PriceProfile',{id:info.id})
+    } 
+    const lichSuNapTien = ()=>{
+        navigation.navigate('LichSuNapTien')
+    }
+    const handleLichSuMuaHang = ()=>{
+        navigation.navigate('Lịch Sử Mua Hàng')
+    }
     const data = {
         id: info.id,
        
      }
-    useEffect(()=>{
-        console.log(data.id)
+    const getProfile = ()=>{
         axios.post(PROFILEMEMBER,data).then((response)=>{
-             console.log(response.data)
-            if(response.data.errCode ===0){
-                console.log(response.userMember)
-                setProfile({...response.data.userMember})
-
+            console.log(response.data)
+           if(response.data.errCode ===0){
+               console.log(response.userMember)
+               setProfile({...response.data.userMember})
+               setRefreshing(false)
+           }
+       })
+    }
+    const getAllOrder = async()=>{
+        let arr = []
+        await axios.get(`${GET_ALL_USER_ORDERS}?id=${info.id}`).then((res)=>{
+            
+            if(res.data.errCode === 0){
+                setGetAllOrders(res.data.getAllOrder)
+                setRefreshing(false)
             }
-        })
+        }).catch((err)=>{console.log(err)})
+    }
+    useEffect(()=>{
+        getAllOrder()
+        getProfile()
          
         
     },[isFocused])
-   
+    const price =(price)=>{
+        let x = price;
+        x = x.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
+        return  x;
+}
+    const countAllOrders = ()=>{
+        let count = 0
+        if(getAllOrders){
+            getAllOrders.map((iten,index)=>{
+                count = count+1
+            })
+        }
+        return count;
+    }
     return (
         <SafeAreaView style={styles.container}>
             <Header
                 title={'Profile'}
                 show={true}
             />
-            <ScrollView showsVerticalScrollIndicator={false}>
+            <ScrollView  refreshControl={
+                <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={() => { onRefresh() }}
+                />
+            } >
             <View style={styles.userInfoSectiom}>
                 <View style = {{flexDirection:'row'}}>
                     <Avatar.Image
@@ -54,7 +102,7 @@ const Profile = () => {
                             uri: profile.anhDaiDien? profile.anhDaiDien:'https://tse4.mm.bing.net/th?id=OIP.eImXLrEHmxuAIYAz3_VKhAHaHt&pid=Api&P=0'
                            
                         }}
-                        side = {80}
+                        size = {100}
                     />
                     <View style={{marginLeft: 20}}>
                         <View style={[styles.row,{
@@ -110,11 +158,11 @@ const Profile = () => {
                 borderRightWidth: 1
                 
             }]}>
-                    <Title style={styles.title}>{profile.tienTk?profile.tienTk:0} VND</Title>
+                    <Title style={styles.title}>{price(profile.tienTk?profile.tienTk:0)}  </Title>
                     <Caption>Wallet</Caption>
                 </View> 
                 <View style={styles.infoBox}>
-                    <Title style={styles.title}>12</Title>
+                    <Title style={styles.title}>{countAllOrders()}</Title>
                     <Caption>Orders</Caption>
                 </View>
             </View>
@@ -128,7 +176,7 @@ const Profile = () => {
                     </View>
                    
                 </TouchableRipple>
-                <TouchableRipple>
+                <TouchableRipple onPress={()=>{priceProfile()}}>
                     <View style={styles.menuItem}>
                         <Icon name="credit-card" color="#000" size={25}/>
                         <Text style={styles.menuItemText}>
@@ -137,11 +185,11 @@ const Profile = () => {
                     </View>
                    
                 </TouchableRipple>
-                <TouchableRipple>
+                <TouchableRipple onPress={()=>{lichSuNapTien()}}>
                     <View style={styles.menuItem}>
-                        <Icon name="share-outline" color="#000" size={25}/>
+                        <Icon name="history" color="#000" size={25}/>
                         <Text style={styles.menuItemText}>
-                            Chia sẻ
+                            Lịch sử nạp tiền
                         </Text>
                     </View>
                    
@@ -155,7 +203,7 @@ const Profile = () => {
                     </View>
                    
                 </TouchableRipple>
-                <TouchableRipple>
+                <TouchableRipple onPress={()=>{handleLichSuMuaHang()}}>
                     <View style={styles.menuItem}>
                         <Icon name="book" color="#000" size={25}/>
                         <Text style={styles.menuItemText}>
